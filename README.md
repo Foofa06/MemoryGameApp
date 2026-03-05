@@ -36,6 +36,6 @@ This is a fun little memory game made with **SwiftUI**. You will need to flip th
 ---
 
 ## Screenshots
-- Screenshot #1
-- Screenshot #2
-- Screenshot #3
+- Screenshot #1.png
+- Screenshot #2.png
+- Screenshot #3.png
