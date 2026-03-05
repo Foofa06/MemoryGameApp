@@ -1,11 +1,20 @@
+//
+//  CardGameViewModel.swift
+//  MemoryGameApp
+//
+//  Created by Fawzia Jassim on 3/2/26.
+//
+
+
 import SwiftUI
+import Combine
 
 class CardGameViewModel: ObservableObject {
 
     @Published var cards: [Card] = []
-    @Published var score: Int = 0
-    @Published var moves: Int = 0
-    @Published var gameOver: Bool = false
+    @Published var score = 0
+    @Published var moves = 0
+    @Published var gameOver = false
 
     private var firstSelectedCard: Card?
 
@@ -14,7 +23,8 @@ class CardGameViewModel: ObservableObject {
     }
 
     func startNewGame() {
-        let emojis = ["🐶","🐱","🦊","🐸","🐵","🐼"]
+
+        let emojis = ["🎀","🍡","🌸","🦋","🧸","🌷"]
 
         var newCards: [Card] = []
 
@@ -24,6 +34,7 @@ class CardGameViewModel: ObservableObject {
         }
 
         cards = newCards.shuffled()
+
         score = 0
         moves = 0
         gameOver = false
@@ -35,22 +46,27 @@ class CardGameViewModel: ObservableObject {
     }
 
     func selectCard(_ selectedCard: Card) {
-        guard let index = cards.firstIndex(where: { $0.id == selectedCard.id }),
+
+        guard let index = cards.firstIndex(where: {$0.id == selectedCard.id}),
               !cards[index].isFaceUp,
               !cards[index].isMatched else { return }
 
         cards[index].isFaceUp = true
 
         if let first = firstSelectedCard {
+
             moves += 1
 
-            if let firstIndex = cards.firstIndex(where: { $0.id == first.id }) {
+            if let firstIndex = cards.firstIndex(where: {$0.id == first.id}) {
 
                 if cards[firstIndex].content == cards[index].content {
+
                     cards[firstIndex].isMatched = true
                     cards[index].isMatched = true
                     score += 2
+
                 } else {
+
                     if score > 0 { score -= 1 }
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -61,11 +77,13 @@ class CardGameViewModel: ObservableObject {
             }
 
             firstSelectedCard = nil
+
         } else {
+
             firstSelectedCard = cards[index]
         }
 
-        if cards.allSatisfy({ $0.isMatched }) {
+        if cards.allSatisfy({$0.isMatched}) {
             gameOver = true
         }
     }

@@ -1,3 +1,11 @@
+//
+//  ControlPanel.swift
+//  MemoryGameApp
+//
+//  Created by Fawzia Jassim on 3/5/26.
+//
+
+
 import SwiftUI
 
 struct ControlPanel: View {
@@ -42,7 +50,7 @@ struct ControlPanel: View {
 
             if viewModel.gameOver {
 
-                Text("Game Over! 🌷")
+                Text("YAY~ You got it!! 🌷")
                     .font(.title)
                     .foregroundColor(.green)
             }
